@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using System.IO;
+using System.Xml.Serialization;
 
 public partial class Start : System.Web.UI.Page
 {
@@ -26,29 +28,36 @@ public partial class Start : System.Web.UI.Page
 
     private string CreateSettlementScript(string custId)
     {
+        CreditSettings settings = null;
+        using (StreamReader reader = new StreamReader(Server.MapPath(@"/credit/CreditSettings.xml")))
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(CreditSettings));
+            settings = (CreditSettings)serializer.Deserialize(reader);
+        }
+
         return string.Join("\n", new string[]
             {
                 "<script>",
                     "function f_submit()",
                     "{",
                         "var order = new Order();",
-                        "order.pay_method            = '" + ConfigurationManager.AppSettings["PayMethod"] + "';",
-                        "order.merchant_id           = '" + ConfigurationManager.AppSettings["MarchantId"] + "';",
-                        "order.service_id            = '" + ConfigurationManager.AppSettings["ServiceId"] + "';",
+                        "order.pay_method            = '" + settings.PayMethod + "';",
+                        "order.merchant_id           = '" + settings.MarchantId + "';",
+                        "order.service_id            = '" + settings.ServiceId + "';",
                         "order.cust_code             = '" + custId + "';",
                         "order.sps_cust_no           = '';",
                         "order.sps_payment_no        = '';",
                         "order.terminal_type         = '0';",
-                        "order.success_url           = '" + ConfigurationManager.AppSettings["LinkSuccessUrl"] + "';",
-                        "order.cancel_url            = '" + ConfigurationManager.AppSettings["LinkCancelUrl"] + "';",
-                        "order.error_url             = '" + ConfigurationManager.AppSettings["LinkErrorUrl"] + "';",
-                        "order.pagecon_url           = '" + ConfigurationManager.AppSettings["LinkCgiUrl"] + "';",
+                        "order.success_url           = '" + settings.LinkSuccessUrl + "';",
+                        "order.cancel_url            = '" + settings.LinkCancelUrl + "';",
+                        "order.error_url             = '" + settings.LinkErrorUrl + "';",
+                        "order.pagecon_url           = '" + settings.LinkCgiUrl + "';",
                         "order.free1                 = '';",
                         "order.free2                 = '';",
                         "order.free3                 = '';",
                         "order.request_date          = '" + DateTime.Now.ToString("yyyyMMddHHmmss") + "';",
                         "order.limit_second          = '';",
-                        "order.hashkey               = '" + ConfigurationManager.AppSettings["LinkHashKey"] + "';",
+                        "order.hashkey               = '" + settings.LinkHashKey + "';",
                         "order.sps_hashcode          = Sha1.hash( order.toString() );",
                         "feppost(order);",
                     "}",
@@ -115,7 +124,7 @@ public partial class Start : System.Web.UI.Page
                     "}",
                     "function feppost(order)",
                     "{",
-                        "var connectUrl = '" + ConfigurationManager.AppSettings["CustAddUrl"] + "';",
+                        "var connectUrl = '" + settings.CustAddUrl + "';",
                         "var form =",
                             "$('<form></form>',{action:connectUrl,target:'_self',method:'POST'}).hide();",
                         "var body = $('body');",
@@ -170,5 +179,18 @@ public partial class Start : System.Web.UI.Page
                     "});",
                 "</script>",
             });
+    }
+
+    public class CreditSettings
+    {
+        public string PayMethod { get; set; }
+        public string MarchantId { get; set; }
+        public string ServiceId { get; set; }
+        public string LinkSuccessUrl { get; set; }
+        public string LinkCancelUrl { get; set; }
+        public string LinkErrorUrl { get; set; }
+        public string LinkCgiUrl { get; set; }
+        public string LinkHashKey { get; set; }
+        public string CustAddUrl { get; set; }
     }
 }

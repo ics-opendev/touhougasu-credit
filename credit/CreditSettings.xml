@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CreditSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PayMethod>credit</PayMethod>
+  <MarchantId>30132</MarchantId>
+  <ServiceId>001</ServiceId>
+  <LinkSuccessUrl>https://tgwebtest.azurewebsites.net/t420013/T420013CompleteEntrySP.aspx</LinkSuccessUrl>
+  <LinkCancelUrl>https://tgwebtest.azurewebsites.net/t900900/T900901CreditCancelSP.aspx</LinkCancelUrl>
+  <LinkErrorUrl>https://tgwebtest.azurewebsites.net/t900900/T900902CreditNGSP.aspx</LinkErrorUrl>
+  <LinkCgiUrl>http://tgwebtest.azurewebsites.net/t900900/T900903CreditResponse.aspx</LinkCgiUrl>
+  <LinkHashKey>c48e0e2c7d04f0954594f14c7801bd430ca6263e</LinkHashKey>
+  <CustAddUrl>https://stbfep.sps-system.com/f04/FepPayInfoReceive.do</CustAddUrl>
+</CreditSettings>
