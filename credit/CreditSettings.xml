@@ -2,11 +2,11 @@
 <CreditSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PayMethod>credit</PayMethod>
   <MarchantId>30132</MarchantId>
-  <ServiceId>001</ServiceId>
+  <ServiceId>101</ServiceId>
   <LinkSuccessUrl>https://tgwebtest.azurewebsites.net/credit/Success.aspx</LinkSuccessUrl>
   <LinkCancelUrl>https://tgwebtest.azurewebsites.net/credit/Cancel.aspx</LinkCancelUrl>
   <LinkErrorUrl>https://tgwebtest.azurewebsites.net/credit/Failed.aspx</LinkErrorUrl>
-  <LinkCgiUrl>http://tgwebtest.azurewebsites.net/credit/DummyCgi.html</LinkCgiUrl>
-  <LinkHashKey>c48e0e2c7d04f0954594f14c7801bd430ca6263e</LinkHashKey>
+  <LinkCgiUrl>https://tgwebtest.azurewebsites.net/credit/ResCgi.aspx</LinkCgiUrl>
+  <LinkHashKey>644da9995cac43695d6b3fcbc89787872fbc8b5c</LinkHashKey>
   <CustAddUrl>https://stbfep.sps-system.com/f04/FepPayInfoReceive.do</CustAddUrl>
 </CreditSettings>
